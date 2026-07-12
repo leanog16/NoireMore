@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap');
+
+#topic {
+  font-family: 'Special Elite', cursive;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+  border-bottom: 3px double #4a4a4a;
+  padding-bottom: 0.5rem;
+}
+
+#resolution {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-left: 5px solid #4a4a4a;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#resolution h2 {
+  font-family: 'Courier Prime', monospace;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin: 0;
+  color: #2a2a2a;
+  font-weight: 700;
+}
+
+/* Resolution color classes */
+#resolution.resolution-false {
+  border-left: 5px solid #8b0000;
+  background: rgba(139, 0, 0, 0.08);
+}
+
+#resolution.resolution-false h2 {
+  color: #8b0000;
+}
+
+#resolution.resolution-true {
+  border-left: 5px solid #2d5016;
+  background: rgba(45, 80, 22, 0.08);
+}
+
+#resolution.resolution-true h2 {
+  color: #2d5016;
+}
+
+#resolution.resolution-disputed {
+  border-left: 5px solid #d4a017;
+  background: rgba(212, 160, 23, 0.08);
+}
+
+#resolution.resolution-disputed h2 {
+  color: #d4a017;
+}
+
+#confidence {
+  font-family: 'Special Elite', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: #1a1a1a;
+  margin: 2rem 0 1.5rem 0;
+  text-transform: uppercase;
+  padding: 0.8rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #4a4a4a;
+  font-weight: 700;
+}
+
+/* Confidence color classes */
+#confidence.confidence-low {
+  border-left: 4px solid #8b0000;
+  background: rgba(139, 0, 0, 0.05);
+  color: #8b0000;
+}
+
+#confidence.confidence-medium {
+  border-left: 4px solid #d4a017;
+  background: rgba(212, 160, 23, 0.05);
+  color: #d4a017;
+}
+
+#confidence.confidence-high {
+  border-left: 4px solid #2d5016;
+  background: rgba(45, 80, 22, 0.05);
+  color: #2d5016;
+}
+
+#source-cats {
+  display: flex;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  justify-content: space-between;
+}
+
+#source-cats > div {
+  flex: 1;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #4a4a4a;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+#supportingg {
+  border-top: 4px solid #2d5016;
+}
+
+#contradicting {
+  border-top: 4px solid #8b0000;
+}
+
+#neutral {
+  border-top: 4px solid #4a4a4a;
+}
+
+#source-cats h3 {
+  font-family: 'Special Elite', cursive;
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
+  color: #1a1a1a;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+}
+
+#supportingg h3 {
+  color: #2d5016;
+}
+
+#contradicting h3 {
+  color: #8b0000;
+}
+
+#neutral h3 {
+  color: #4a4a4a;
+}
+
+#source-cats p {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #2a2a2a;
+}
+
+#sources {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 3px double #4a4a4a;
+}
+
