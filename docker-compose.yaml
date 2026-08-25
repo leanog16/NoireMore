@@ -6,6 +6,9 @@ services:
     container_name: noiremore-backend
     ports:
       - "5050:5050"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
     healthcheck:
       test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:5050/api/health').raise_for_status()"]
       interval: 30s

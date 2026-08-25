@@ -1,10 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/UrbanNoirBackground.css";
 import "../css/About.css";
 import Report from './Report';
-import sidewalkImage from "../assets/sidewalk.jpeg"; 
-import logo from "../assets/logo.png"; 
-import about from "../assets/about.png"; 
+import sidewalkImage from "../assets/sidewalk.jpeg";
+import logo from "../assets/logo.png";
+import about from "../assets/about.png";
+
+// Natural pixel size of sidewalk.jpeg, and the lamp bulb's fractional
+// position within it. Used to keep the light-cone glow pinned to the
+// lamp regardless of screen size/aspect ratio, matching how the CSS
+// background (background-size: cover; background-position: top center)
+// scales and crops the same image.
+const BG_IMAGE_WIDTH = 4096;
+const BG_IMAGE_HEIGHT = 2964;
+const BULB_FRACTION_X = 0.113;
+const BULB_FRACTION_Y = 0.095;
+
+function computeBulbPosition() {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const scale = Math.max(vw / BG_IMAGE_WIDTH, vh / BG_IMAGE_HEIGHT);
+  const renderedWidth = BG_IMAGE_WIDTH * scale;
+  const renderedHeight = BG_IMAGE_HEIGHT * scale;
+  const offsetX = 0; // horizontal: left-anchored
+  const offsetY = 0; // vertical: top-anchored
+
+  return {
+    left: offsetX + BULB_FRACTION_X * renderedWidth,
+    top: offsetY + BULB_FRACTION_Y * renderedHeight,
+  };
+}
 
 export default function UrbanNoirBackground() {
   const [showAbout, setShowAbout] = useState(false);
@@ -12,6 +37,13 @@ export default function UrbanNoirBackground() {
   const [reportData, setReportData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [hasNewReport, setHasNewReport] = useState(false);
+  const [bulbPosition, setBulbPosition] = useState(computeBulbPosition);
+
+  useEffect(() => {
+    const handleResize = () => setBulbPosition(computeBulbPosition());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleSubmit = async () => {
     console.log("Submitting text:", text);
@@ -27,8 +59,9 @@ export default function UrbanNoirBackground() {
       return;
     }
     
+    setHasNewReport(false);
     setLoading(true);
-    
+
     try {
       const response = await fetch("/submit", {
         method: "POST",
@@ -65,7 +98,10 @@ export default function UrbanNoirBackground() {
 
   return (
     <div id="main" style={{ backgroundImage: `url(${sidewalkImage})` }}>
-      <div id="light-cone"></div>
+      <div
+        id="light-cone"
+        style={{ left: `${bulbPosition.left}px`, top: `${bulbPosition.top}px` }}
+      ></div>
       <div id="center">
         <img id="logo" src={logo}/>
         <img 
@@ -95,10 +131,11 @@ export default function UrbanNoirBackground() {
         ></button>
       </div>
       <div id="folder-div" onMouseEnter={handleFolderHover}>
-        <div id="tab" className={hasNewReport ? "new-report" : ""}>
+        <div id="tab" className={hasNewReport ? "new-report" : loading ? "loading-tab" : ""}>
           <p>
             RESULTS{hasNewReport && " !"}
           </p>
+          {loading && <div className="tab-spinner" aria-label="Investigating..." />}
         </div>
         <div id="folder"> 
           <div id="paper-wrapper">
@@ -106,6 +143,7 @@ export default function UrbanNoirBackground() {
             <div id="paper">
               {loading ? (
                 <div style={{ textAlign: 'center', padding: '3rem' }}>
+                  <div className="paper-spinner" aria-label="Investigating..."></div>
                   <h2 className="casefile-placeholder">INVESTIGATING...</h2>
                   <p className="casefile-placeholder">Analyzing claim and gathering sources...</p>
                 </div>
