@@ -3,9 +3,9 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      network: host
     container_name: noiremore-backend
-    ports:
-      - "5050:5050"
+    network_mode: host
     environment:
       - GROQ_API_KEY=${GROQ_API_KEY}
       - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
@@ -16,23 +16,15 @@ services:
       start_period: 10s
       retries: 3
     restart: unless-stopped
-    networks:
-      - noiremore-net
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      network: host
     container_name: noiremore-frontend
-    ports:
-      - "8080:80"
+    network_mode: host
     depends_on:
       backend:
         condition: service_healthy
     restart: unless-stopped
-    networks:
-      - noiremore-net
-
-networks:
-  noiremore-net:
-    driver: bridge

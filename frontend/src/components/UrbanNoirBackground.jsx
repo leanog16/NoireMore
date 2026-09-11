@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import "../css/UrbanNoirBackground.css";
 import "../css/About.css";
 import Report from './Report';
-import sidewalkImage from "../assets/sidewalk.jpeg";
-import logo from "../assets/logo.png";
-import about from "../assets/about.png";
+import sidewalkImage from "../assets/sidewalk.webp";
+import logo from "../assets/logo.webp";
+import about from "../assets/about.webp";
 
-// Natural pixel size of sidewalk.jpeg, and the lamp bulb's fractional
+// Natural pixel size of sidewalk.webp, and the lamp bulb's fractional
 // position within it. Used to keep the light-cone glow pinned to the
 // lamp regardless of screen size/aspect ratio, matching how the CSS
 // background (background-size: cover; background-position: top center)
 // scales and crops the same image.
-const BG_IMAGE_WIDTH = 4096;
-const BG_IMAGE_HEIGHT = 2964;
+const BG_IMAGE_WIDTH = 2560;
+const BG_IMAGE_HEIGHT = 1853;
 const BULB_FRACTION_X = 0.113;
 const BULB_FRACTION_Y = 0.095;
 
@@ -103,10 +103,11 @@ export default function UrbanNoirBackground() {
         style={{ left: `${bulbPosition.left}px`, top: `${bulbPosition.top}px` }}
       ></div>
       <div id="center">
-        <img id="logo" src={logo}/>
-        <img 
-          id="about" 
-          src={about} 
+        <img id="logo" src={logo} fetchPriority="high" decoding="async"/>
+        <img
+          id="about"
+          src={about}
+          decoding="async"
           onClick={() => setShowAbout(true)}
           style={{ cursor: 'pointer' }}
         />
